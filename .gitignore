@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-demo
+.netlify
+coverage
+*.log
+.DS_Store
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Raw real-search captures (contain real people's data; never commit)
+.debug/
