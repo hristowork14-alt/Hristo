@@ -64,7 +64,7 @@ export async function handleChat(input: ChatInput): Promise<ChatOutput> {
   await saveMessage(conversationId, userMsg, input.text);
 
   const system = buildSystemPrompt(salon, await listHours(salon.id), now);
-  const callModel = input.model ?? callClaude;
+  const callModel = input.model ?? defaultModel;
   let reply = '';
 
   try {
@@ -138,6 +138,12 @@ function requestParams(system: string, messages: BetaMessageParam[]): CreatePara
 }
 
 let client: Anthropic | null = null;
+
+// Routes (web, Telegram) use this. Tests swap in a scripted model with setDefaultModel().
+let defaultModel: ModelCall = (params) => callClaude(params);
+export function setDefaultModel(model: ModelCall | null) {
+  defaultModel = model ?? ((params) => callClaude(params));
+}
 
 export const callClaude: ModelCall = async (params) => {
   client ??= new Anthropic(); // reads ANTHROPIC_API_KEY

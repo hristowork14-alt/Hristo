@@ -5,6 +5,7 @@ import { handleChat } from '@/lib/agent';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // the agent may call several tools
 
 const Body = z.object({
   session_id: z.string().trim().min(8).max(100).regex(/^[\w-]+$/, 'letters, digits, _ and - only'),
