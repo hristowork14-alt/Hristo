@@ -14,6 +14,7 @@ export interface Salon {
   min_lead_min: number;
   max_days_ahead: number;
   extra_info: string | null;
+  owner_email?: string | null;
 }
 
 export interface Service {

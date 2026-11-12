@@ -24,14 +24,14 @@ export const DEMO_HOURS: Record<number, [string, string]> = {
   6: ['10:00', '16:00'],
 };
 
-export async function seedDemo(sql: Sql): Promise<string> {
+export async function seedDemo(sql: Sql, ownerEmail: string | null = null): Promise<string> {
   return sql.begin(async (tx) => {
     await tx`delete from salons where slug = ${DEMO_SLUG}`;
     const [salon] = await tx`
-      insert into salons (slug, name, address, phone, timezone, currency, slot_step_min, extra_info)
+      insert into salons (slug, name, address, phone, timezone, currency, slot_step_min, extra_info, owner_email)
       values (${DEMO_SLUG}, 'Барбър Студио Витоша', 'ул. Витоша 1, София', '+359 888 123 456',
               'Europe/Sofia', 'EUR', 30,
-              'Плащане в брой или с карта. Паркиране на улицата (синя зона).')
+              'Плащане в брой или с карта. Паркиране на улицата (синя зона).', ${ownerEmail})
       returning id`;
     for (const [i, s] of DEMO_SERVICES.entries()) {
       await tx`insert into services (salon_id, name_bg, name_en, duration_min, price, sort_order)

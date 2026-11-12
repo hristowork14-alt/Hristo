@@ -15,10 +15,13 @@
     "db:seed": "tsx scripts/seed.ts",
     "chat": "tsx scripts/chat-cli.ts",
     "test": "vitest run",
-    "test:live": "LIVE=1 vitest run tests/live"
+    "test:live": "LIVE=1 vitest run tests/live",
+    "db:demo-data": "tsx scripts/demo-data.ts",
+    "telegram:webhook": "tsx scripts/telegram-webhook.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0",
+    "@supabase/supabase-js": "^2.119.0",
     "next": "^16.4.6",
     "postgres": "^3.4.9",
     "react": "^19.3.1",
